@@ -1,0 +1,11 @@
+com/exemplo/pedidoservice/dto/ItemCardapioDTO.class
+com/exemplo/pedidoservice/client/RestauranteClient.class
+com/exemplo/pedidoservice/controller/PedidoController.class
+com/exemplo/pedidoservice/model/Pedido.class
+com/exemplo/pedidoservice/repository/PedidoRepository.class
+com/exemplo/pedidoservice/dto/PagamentoRequestDTO.class
+com/exemplo/pedidoservice/config/RestTemplateConfig.class
+com/exemplo/pedidoservice/model/ItemPedido.class
+com/exemplo/pedidoservice/service/PedidoService.class
+com/exemplo/pedidoservice/client/PagamentoClient.class
+com/exemplo/pedidoservice/PedidoserviceApplication.class
