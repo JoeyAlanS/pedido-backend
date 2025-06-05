@@ -5,7 +5,6 @@ import com.exemplo.pedidoservice.service.PedidoService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-// Adicione esta importação
 import com.exemplo.pedidoservice.client.RestauranteClient;
 import com.exemplo.pedidoservice.dto.ItemCardapioDTO;
 
@@ -15,13 +14,12 @@ import com.exemplo.pedidoservice.dto.ItemCardapioDTO;
 public class PedidoController {
 
     private final PedidoService pedidoService;
-
     private final RestauranteClient restauranteClient;
+
     public PedidoController(PedidoService pedidoService, RestauranteClient restauranteClient) {
         this.pedidoService = pedidoService;
         this.restauranteClient = restauranteClient;
     }
-    
 
     // Criar novo pedido
     @PostMapping
@@ -51,21 +49,7 @@ public class PedidoController {
 
     @GetMapping("/restaurante/{restauranteId}/itens")
     public List<ItemCardapioDTO> listarItensDoRestaurante(@PathVariable String restauranteId) {
-        // --- MOCK DE EXEMPLO ---
-        ItemCardapioDTO pizza = new ItemCardapioDTO();
-        pizza.setId("1");
-        pizza.setNome("Pizza Margherita");
-        pizza.setDescricao("Pizza clássica de tomate e queijo.");
-        pizza.setPreco(39.90);
-
-        ItemCardapioDTO burger = new ItemCardapioDTO();
-        burger.setId("2");
-        burger.setNome("Hambúrguer Clássico");
-        burger.setDescricao("Pão, carne e queijo.");
-        burger.setPreco(24.90);
-
-        return List.of(pizza, burger);
-        // return restauranteClient.listarItensCardapio(restauranteId);
+        // Agora consome o microserviço real de restaurante
+        return restauranteClient.listarItensCardapio(restauranteId);
     }
-
 }
