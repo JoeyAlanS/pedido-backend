@@ -1,5 +1,6 @@
 package com.exemplo.pedidoservice.controller;
 
+import com.exemplo.pedidoservice.client.ClienteClient;
 import com.exemplo.pedidoservice.model.Pedido;
 import com.exemplo.pedidoservice.service.PedidoService;
 import org.springframework.web.bind.annotation.*;
@@ -7,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import com.exemplo.pedidoservice.client.RestauranteClient;
 import com.exemplo.pedidoservice.dto.ItemCardapioDTO;
+import com.exemplo.pedidoservice.dto.ClienteNomeDTO;
 
 @RestController
 @RequestMapping("/api/pedidos")
@@ -15,10 +17,12 @@ public class PedidoController {
 
     private final PedidoService pedidoService;
     private final RestauranteClient restauranteClient;
+    private final ClienteClient clienteClient;
 
-    public PedidoController(PedidoService pedidoService, RestauranteClient restauranteClient) {
+    public PedidoController(PedidoService pedidoService, RestauranteClient restauranteClient, ClienteClient clienteClient) {
         this.pedidoService = pedidoService;
         this.restauranteClient = restauranteClient;
+        this.clienteClient = clienteClient;
     }
 
     // Criar novo pedido
@@ -47,9 +51,15 @@ public class PedidoController {
                 .orElse(0.0);
     }
 
-    @GetMapping("/restaurante/{restauranteId}/itens")
-    public List<ItemCardapioDTO> listarItensDoRestaurante(@PathVariable String restauranteId) {
-        // Agora consome o microserviço real de restaurante
-        return restauranteClient.listarItensCardapio(restauranteId);
+    // Listagem dos itens do cardápio via restauranteClient
+    @GetMapping("/itensCardapio")
+    public List<ItemCardapioDTO> listarItensDoCardapio() {
+        return restauranteClient.listarItensCardapio();
+    }
+
+    // Buscar apenas o nome do cliente pelo ID
+    @GetMapping("/cliente/{clienteId}/nome")
+    public ClienteNomeDTO buscarNomeCliente(@PathVariable String clienteId) {
+        return clienteClient.buscarClientePorId(clienteId);
     }
 }

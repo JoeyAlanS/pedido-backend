@@ -10,6 +10,7 @@ public class Pedido {
     @Id
     private String id;
     private String clienteId;
+    private String clienteNome;
     private List<ItemPedido> itens;
     private Double valorTotal;
     private String status;
@@ -28,4 +29,8 @@ public class Pedido {
 
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }
+
+    public String getClienteNome() { return clienteNome; }
+    public void setClienteNome(String clienteNome) { this.clienteNome = clienteNome; }
+
 }

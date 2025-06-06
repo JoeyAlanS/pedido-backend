@@ -1,11 +1,11 @@
-package com.exemplo.pedidoservice.service;
+package com.exemplo.pedidoservice.client;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-@Service
-public class EntregadorService {
+@Component
+public class EntregadorClient {
 
     @Autowired
     private RestTemplate restTemplate;
@@ -14,7 +14,6 @@ public class EntregadorService {
 
     public Object buscarEntregadorPorId(String entregadorId) {
         String url = BASE_URL + entregadorId;
-
         return restTemplate.getForObject(url, Object.class);
     }
 }
