@@ -1,19 +1,27 @@
 package com.exemplo.pedidoservice.client;
 
+import com.exemplo.pedidoservice.dto.StatusEntregadorDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 @Component
 public class EntregadorClient {
-
     @Autowired
     private RestTemplate restTemplate;
 
-    private static final String BASE_URL = "http://entregador-service/api/entregadores/";
+    // Railway URL (ajuste se o projeto/endpoint for diferente)
+    private final String BASE_URL = "https://reasonable-happiness-production.up.railway.app/";
 
-    public Object buscarEntregadorPorId(String entregadorId) {
-        String url = BASE_URL + entregadorId;
-        return restTemplate.getForObject(url, Object.class);
+    // GET /api/entregadores/{id}
+    public StatusEntregadorDTO buscarEntregadorPorId(String entregadorId) {
+        String url = BASE_URL + "/" + entregadorId;
+        return restTemplate.getForObject(url, StatusEntregadorDTO.class);
+    }
+
+    // PUT /api/deliveries/{entregaId}/status
+    public void atualizarStatusEntrega(String entregaId, String novoStatus) {
+        String url = "https://entregador-production-7756.up.railway.app/api/deliveries/" + entregaId + "/status";
+        restTemplate.put(url, novoStatus);
     }
 }

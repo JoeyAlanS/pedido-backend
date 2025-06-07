@@ -1,11 +1,16 @@
 package com.exemplo.pedidoservice.controller;
 
 import com.exemplo.pedidoservice.client.ClienteClient;
+import com.exemplo.pedidoservice.client.EntregadorClient;
+import com.exemplo.pedidoservice.dto.StatusEntregadorDTO;
 import com.exemplo.pedidoservice.model.Pedido;
 import com.exemplo.pedidoservice.service.PedidoService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
+
 import com.exemplo.pedidoservice.client.RestauranteClient;
 import com.exemplo.pedidoservice.dto.ItemCardapioDTO;
 import com.exemplo.pedidoservice.dto.ClienteNomeDTO;
@@ -18,11 +23,15 @@ public class PedidoController {
     private final PedidoService pedidoService;
     private final RestauranteClient restauranteClient;
     private final ClienteClient clienteClient;
+    private final EntregadorClient entregadorClient;
 
-    public PedidoController(PedidoService pedidoService, RestauranteClient restauranteClient, ClienteClient clienteClient) {
+
+    public PedidoController(PedidoService pedidoService, RestauranteClient restauranteClient, ClienteClient clienteClient, EntregadorClient entregadorClient) {
         this.pedidoService = pedidoService;
         this.restauranteClient = restauranteClient;
         this.clienteClient = clienteClient;
+        this.entregadorClient = entregadorClient;
+
     }
 
     // Criar novo pedido
@@ -62,4 +71,29 @@ public class PedidoController {
     public ClienteNomeDTO buscarNomeCliente(@PathVariable String clienteId) {
         return clienteClient.buscarClientePorId(clienteId);
     }
+
+    @PutMapping("/{pedidoId}/entregador/{entregadorId}")
+    public ResponseEntity<Pedido> associarEntregadorAoPedido(
+            @PathVariable String pedidoId,
+            @PathVariable String entregadorId) {
+        Optional<Pedido> optional = pedidoService.consultarDetalhes(pedidoId);
+        if (optional.isEmpty()) return ResponseEntity.notFound().build();
+        Pedido pedido = optional.get();
+        pedido.setEntregadorId(entregadorId);
+        pedidoService.salvarPedido(pedido);
+        return ResponseEntity.ok(pedido);
+    }
+
+    // Buscar status e nome do entregador vinculado ao pedido via outro microserviço (Railway)
+    @GetMapping("/{pedidoId}/entregador-info")
+    public ResponseEntity<StatusEntregadorDTO> buscarEntregadorInfo(@PathVariable String pedidoId) {
+        Optional<Pedido> optional = pedidoService.consultarDetalhes(pedidoId);
+        if (optional.isEmpty() || optional.get().getEntregadorId() == null) return ResponseEntity.notFound().build();
+        String entregadorId = optional.get().getEntregadorId();
+        StatusEntregadorDTO dto = entregadorClient.buscarEntregadorPorId(entregadorId);
+        if (dto == null) return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(dto);
+    }
+
+
 }

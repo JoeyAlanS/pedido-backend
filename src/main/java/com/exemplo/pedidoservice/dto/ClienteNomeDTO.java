@@ -4,7 +4,8 @@ public class ClienteNomeDTO {
     private String id;
     private String nome;
 
-    public ClienteNomeDTO() { }
+    public ClienteNomeDTO() {
+    }
 
     public ClienteNomeDTO(String id, String nome) {
         this.id = id;

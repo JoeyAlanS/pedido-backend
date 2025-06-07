@@ -14,23 +14,64 @@ public class Pedido {
     private List<ItemPedido> itens;
     private Double valorTotal;
     private String status;
+    private String entregadorId;
 
-    public String getId() { return id; }
-    public void setId(String id) { this.id = id; }
 
-    public String getClienteId() { return clienteId; }
-    public void setClienteId(String clienteId) { this.clienteId = clienteId; }
+    public String getId() {
+        return id;
+    }
 
-    public List<ItemPedido> getItens() { return itens; }
-    public void setItens(List<ItemPedido> itens) { this.itens = itens; }
+    public void setId(String id) {
+        this.id = id;
+    }
 
-    public Double getValorTotal() { return valorTotal; }
-    public void setValorTotal(Double valorTotal) { this.valorTotal = valorTotal; }
+    public String getClienteId() {
+        return clienteId;
+    }
 
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
+    public void setClienteId(String clienteId) {
+        this.clienteId = clienteId;
+    }
 
-    public String getClienteNome() { return clienteNome; }
-    public void setClienteNome(String clienteNome) { this.clienteNome = clienteNome; }
+    public List<ItemPedido> getItens() {
+        return itens;
+    }
+
+    public void setItens(List<ItemPedido> itens) {
+        this.itens = itens;
+    }
+
+    public Double getValorTotal() {
+        return valorTotal;
+    }
+
+    public void setValorTotal(Double valorTotal) {
+        this.valorTotal = valorTotal;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getClienteNome() {
+        return clienteNome;
+    }
+
+    public void setClienteNome(String clienteNome) {
+        this.clienteNome = clienteNome;
+    }
+
+    public String getEntregadorId() {
+        return entregadorId;
+    }
+
+    public void setEntregadorId(String entregadorId) {
+        this.entregadorId = entregadorId;
+    }
+
 
 }
