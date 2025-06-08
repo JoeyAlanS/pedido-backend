@@ -17,7 +17,6 @@ import com.exemplo.pedidoservice.dto.ClienteNomeDTO;
 
 @RestController
 @RequestMapping("/api/pedidos")
-@CrossOrigin(origins = "*")
 public class PedidoController {
 
     private final PedidoService pedidoService;
