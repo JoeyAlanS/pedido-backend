@@ -60,7 +60,7 @@ public class PedidoController {
                 .orElse(0.0);
     }
 
-    @GetMapping("/todos-pedidos")
+    @GetMapping
     public List<Pedido> listarTodosPedidos() {
         return pedidoService.listarTodosPedidos();
     }
