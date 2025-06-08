@@ -35,7 +35,7 @@ public class PedidoController {
     }
 
     // Criar novo pedido
-    @PostMapping
+    @PostMapping("/criar-pedidos")
     public Pedido criarPedido(@RequestBody Pedido pedido) {
         return pedidoService.criarPedido(pedido);
     }
@@ -60,7 +60,7 @@ public class PedidoController {
                 .orElse(0.0);
     }
 
-    @GetMapping
+    @GetMapping("/todos")
     public List<Pedido> listarTodosPedidos() {
         return pedidoService.listarTodosPedidos();
     }
