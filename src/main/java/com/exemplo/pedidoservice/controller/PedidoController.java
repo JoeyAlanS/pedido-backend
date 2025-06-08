@@ -60,6 +60,12 @@ public class PedidoController {
                 .orElse(0.0);
     }
 
+    @GetMapping
+    public List<Pedido> listarTodosPedidos() {
+        return pedidoService.listarTodosPedidos();
+    }
+
+
     // Listagem dos itens do cardápio via restauranteClient
     @GetMapping("/itensCardapio")
     public List<ItemCardapioDTO> listarItensDoCardapio() {

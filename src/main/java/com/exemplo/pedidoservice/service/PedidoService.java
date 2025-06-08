@@ -64,4 +64,8 @@ public class PedidoService {
         return repository.save(pedido);
     }
 
+    public List<Pedido> listarTodosPedidos() {
+        return repository.findAll();
+    }
+
 }
